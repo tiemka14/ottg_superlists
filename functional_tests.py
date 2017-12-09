@@ -37,19 +37,24 @@ class NewVisitorTest(unittest.TestCase):
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == 'Buy peacock feathers' for row in rows),
-            "New to-do item did not appear in the list"
-        )
+        self.assertIn('1: Buy peacock feathers',[row.text for row in rows])
 
         # There is a text box to enter a second item
         # She types: "Use peacock feather to make a fly"
-        self.fail('Finish the test!')
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys("Use peacock feather to make a fly")
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
 
         # The page updates again and now shows two items
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('1: Buy peacock feathers',[row.text for row in rows])
+        self.assertIn('2: Use peacock feather to make a fly',[row.text for row in rows])
 
         # The site generated a unique URL, so Edith can look up her list again
         # There is also some explanatory text
+        self.fail('Finish the test!')
 
         # She visits the URL and her list is there
 
