@@ -24,7 +24,7 @@ class LoginTest(FunctionalTest):
         start = time.time()
         inbox=poplib.POP3_SSL('pop.mail.yahoo.com')
         try:
-            inbox_user(test_email)
+            inbox.user(test_email)
             inbox.pass_(os.environ['YAHOO_PASSWORD'])
             while time.time() - start < 60:
                 # get 10 newest messages
