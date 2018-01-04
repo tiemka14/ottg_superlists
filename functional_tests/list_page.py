@@ -14,6 +14,7 @@ class ListPage(object):
         rows = self.get_table_rows()
         self.test.assertIn(expected_row_text, [row.text for row in rows])
 
+
     def get_item_inputbox(self):
         return self.test.browser.find_element_by_id('id_text')
 
@@ -36,7 +37,9 @@ class ListPage(object):
 
     def share_list_with(self, email):
         self.get_share_box().send_keys(email)
+        #print("share box1: ", self.test.browser.find_element_by_css_selector('input[name="sharee"]').text)
         self.get_share_box().send_keys(Keys.ENTER)
+        #print("share box2: ", self.test.browser.find_element_by_css_selector('input[name="sharee"]').text)
         self.test.wait_for(lambda: self.test.assertIn(
             email,
             [item.text for item in self.get_shared_with_list()]
